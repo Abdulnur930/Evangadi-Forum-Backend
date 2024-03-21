@@ -23,9 +23,9 @@ const askQuestion = async (req, res) => {
       .json({ msg: "question asked successfully" });
   } catch (error) {
     console.log(error.message);
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "something went wrong, please try again later" });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      msg: "something went wrong while asking question, please try again later",
+    });
   }
 };
 //get all the questions
@@ -37,9 +37,9 @@ const getAllQuestions = async (req, res) => {
     return res.status(StatusCodes.OK).json(questions);
   } catch (error) {
     console.log(error.message);
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "something went wrong, please try again" });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      msg: "something went wrong while fetching questions, please try again",
+    });
   }
 };
 

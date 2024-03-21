@@ -41,7 +41,9 @@ async function register(req, res) {
     console.log(error.message);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "something went wrong, try again later!" });
+      .json({
+        msg: "something went wrong while registering, try again later!",
+      });
   }
 }
 async function login(req, res) {
@@ -61,7 +63,7 @@ async function login(req, res) {
     if (user.length == 0) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "invalid credential" });
+        .json({ msg: "no registered user by this credential please sign up" });
     }
 
     // compare password
@@ -71,27 +73,33 @@ async function login(req, res) {
     if (!isMatch) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "invalid credential" });
+        .json({ msg: "password not correct please try again" });
     }
     const username = user[0].username;
     const userid = user[0].userid;
     const firstname = user[0].firstname;
-    const token = jwt.sign({ username, userid,firstname }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      { username, userid, firstname },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
     return res
       .status(StatusCodes.OK)
-      .json({ msg: "user login successful", token, username,firstname });
+      .json({ msg: "user login successful", token, username, firstname });
   } catch (error) {
     console.log(error.message);
 
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "something went wrong, try again later!" });
+      .json({ msg: "something went wrong while login, try again later!" });
   }
 }
 async function checkUser(req, res) {
-  const { username, userid,firstname } = req.user;
-  res.status(StatusCodes.OK).json({ msg: "valid user", username, userid,firstname });
+  const { username, userid, firstname } = req.user;
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: "valid user", username, userid, firstname });
 }
 module.exports = { login, checkUser, register };
