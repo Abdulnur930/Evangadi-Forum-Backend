@@ -1,9 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const port = 5500;
-const cors=require('cors')
-app.use(cors())
+const port = process.env.port;
+const cors = require("cors");
+app.use(cors());
 //db connection
 const dbConnection = require("./db/dbConfig");
 //authentication middleware file
@@ -15,7 +15,7 @@ const userRoutes = require("./routes/userRoute");
 //question routes middleware file
 const questionRoutes = require("./routes/questionRoute");
 //answer routes middleware file
-const answerRoutes=require("./routes/answerRoute")
+const answerRoutes = require("./routes/answerRoute");
 //json middleware to extract json data
 app.use(express.json());
 
@@ -25,7 +25,7 @@ app.use("/api/users", userRoutes);
 //question routes middleware
 app.use("/api/questions", authMiddleware, questionRoutes);
 //answer routes middleware-
-app.use("/api/answers",authMiddleware,answerRoutes)
+app.use("/api/answers", authMiddleware, answerRoutes);
 async function start() {
   try {
     const result = await dbConnection.execute("select 'test' ");
