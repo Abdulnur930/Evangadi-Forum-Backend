@@ -63,7 +63,9 @@ async function login(req, res) {
     if (user.length == 0) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "no registered user by this credential please sign up" });
+        .json({
+          msg: "either the email or password your entered is incorrect",
+        });
     }
 
     // compare password
@@ -73,7 +75,9 @@ async function login(req, res) {
     if (!isMatch) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "password not correct please try again" });
+        .json({
+          msg: "either the email or password your entered is incorrect",
+        });
     }
     const username = user[0].username;
     const userid = user[0].userid;
