@@ -3,7 +3,8 @@ const router = express.Router();
 //import all the questions controllers
 const {
   askQuestion,
-  getAllQuestions,getSingleQuestion,
+  getAllQuestions,
+  getSingleQuestion,
 } = require("../controllers/questionController");
 
 //question route

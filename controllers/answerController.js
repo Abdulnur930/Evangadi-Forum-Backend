@@ -18,11 +18,9 @@ const addAnswer = async (req, res) => {
       .status(StatusCodes.CREATED)
       .json({ msg: "answer added successfully" });
   } catch (error) {
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({
-        msg: "Something went wrong while adding answer, please try again",
-      });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      msg: "Something went wrong while adding answer, please try again",
+    });
   }
 };
 async function answers(req, res) {

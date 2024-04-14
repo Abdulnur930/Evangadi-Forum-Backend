@@ -39,11 +39,9 @@ async function register(req, res) {
     return res.status(StatusCodes.CREATED).json({ msg: "user registered" });
   } catch (error) {
     console.log(error.message);
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({
-        msg: "something went wrong while registering, try again later!",
-      });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      msg: "something went wrong while registering, try again later!",
+    });
   }
 }
 async function login(req, res) {
@@ -61,11 +59,9 @@ async function login(req, res) {
       [email]
     );
     if (user.length == 0) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({
-          msg: "either the email or password your entered is incorrect",
-        });
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        msg: "either the email or password your entered is incorrect",
+      });
     }
 
     // compare password
@@ -73,11 +69,9 @@ async function login(req, res) {
     const isMatch = await bcrypt.compare(password, user[0].password);
 
     if (!isMatch) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({
-          msg: "either the email or password your entered is incorrect",
-        });
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        msg: "either the email or password your entered is incorrect",
+      });
     }
     const username = user[0].username;
     const userid = user[0].userid;
